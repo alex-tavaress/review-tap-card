@@ -274,29 +274,6 @@ export default function Home() {
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 380px"
                   />
-                  
-                  {/* Floating Top Badge */}
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1.5 rounded-xl border border-white/15 flex items-center gap-1.5 shadow-lg">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>NTAG215 High-Speed NFC</span>
-                  </div>
-
-                  {/* Floating Bottom Badge */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md text-slate-800 p-3 rounded-2xl border border-slate-200/80 shadow-xl flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 font-black text-xs">
-                        G
-                      </div>
-                      <div>
-                        <p className="text-xs font-black leading-tight text-slate-900">Google Review Card</p>
-                        <p className="text-[10px] text-slate-500 font-medium">1-Tap Direct Rating</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200/60">
-                      <span className="text-amber-500 text-xs">★★★★★</span>
-                      <span className="text-[10px] font-bold text-amber-700 font-mono">5.0</span>
-                    </div>
-                  </div>
                 </div>
 
               </div>
