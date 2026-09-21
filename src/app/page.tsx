@@ -259,31 +259,43 @@ export default function Home() {
             <div className="lg:col-span-5 flex flex-col items-center">
               
               {/* Product Showcase Card */}
-              <div className="relative w-full max-w-md">
+              <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
                 
                 {/* Glow Backdrop */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 via-indigo-500/15 to-amber-500/20 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+                <div className="absolute -inset-3 bg-gradient-to-tr from-blue-600/25 via-amber-500/20 to-indigo-600/25 rounded-[2.5rem] blur-2xl opacity-80 pointer-events-none" />
 
                 {/* Main Card Image Container */}
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200/80 bg-white shadow-2xl">
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden border-2 border-slate-200/90 bg-slate-900 shadow-2xl group">
                   <Image
-                    src="/media/card-podium-studio.webp"
-                    alt="TapFive NFC Google Review Card - Studio Podium View"
+                    src="/media/hero-card-showcase.webp"
+                    alt="TapFive NFC Google Review Card"
                     fill
                     priority
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 380px"
                   />
                   
-                  {/* Floating Badges */}
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5 shadow-sm">
+                  {/* Floating Top Badge */}
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1.5 rounded-xl border border-white/15 flex items-center gap-1.5 shadow-lg">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span>NTAG215 High-Speed NFC</span>
                   </div>
 
-                  <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200/80 shadow-md flex items-center gap-1">
-                    <span className="text-amber-400">★★★★★</span>
-                    <span className="text-[10px] text-slate-600 font-mono ml-0.5">5.0</span>
+                  {/* Floating Bottom Badge */}
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md text-slate-800 p-3 rounded-2xl border border-slate-200/80 shadow-xl flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 font-black text-xs">
+                        G
+                      </div>
+                      <div>
+                        <p className="text-xs font-black leading-tight text-slate-900">Google Review Card</p>
+                        <p className="text-[10px] text-slate-500 font-medium">1-Tap Direct Rating</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200/60">
+                      <span className="text-amber-500 text-xs">★★★★★</span>
+                      <span className="text-[10px] font-bold text-amber-700 font-mono">5.0</span>
+                    </div>
                   </div>
                 </div>
 
