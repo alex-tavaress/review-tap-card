@@ -24,7 +24,10 @@ import {
   Truck, 
   RotateCcw, 
   CreditCard,
-  MessageCircle
+  MessageCircle,
+  Volume2,
+  VolumeX,
+  Play
 } from "lucide-react";
 import { content, Locale } from "@/lib/content";
 import { STRIPE_CONFIG } from "@/lib/stripe";
@@ -40,6 +43,9 @@ export default function Home() {
   const [gbpContactInfo, setGbpContactInfo] = useState<string>("");
   const [gbpInputError, setGbpInputError] = useState<boolean>(false);
   const [phoneTapped, setPhoneTapped] = useState<boolean>(false);
+  const [activePdpImage, setActivePdpImage] = useState<number>(0);
+  const [video1Muted, setVideo1Muted] = useState<boolean>(true);
+  const [video2Muted, setVideo2Muted] = useState<boolean>(true);
 
   // Auto-detect browser/device language: default to English, switch to Portuguese only if device is set to Portuguese
   useEffect(() => {
@@ -162,8 +168,9 @@ export default function Home() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-slate-600">
             <a href="#how-it-works" className="hover:text-blue-600 transition-colors">{t.nav.howItWorks}</a>
-            <a href="#calculator" className="hover:text-blue-600 transition-colors">{t.nav.calculator}</a>
+            <a href="#video-reviews" className="hover:text-blue-600 transition-colors">{t.nav.videoReviews}</a>
             <a href="#use-cases" className="hover:text-blue-600 transition-colors">{t.nav.features}</a>
+            <a href="#calculator" className="hover:text-blue-600 transition-colors">{t.nav.calculator}</a>
             <a href="#pricing" className="hover:text-blue-600 transition-colors">{t.nav.pricing}</a>
             <a href="#faq" className="hover:text-blue-600 transition-colors">{t.nav.faq}</a>
           </nav>
@@ -396,6 +403,126 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 4.5. Real Customer Video Stories (UGC Video Reels) */}
+      <section id="video-reviews" className="py-20 bg-slate-950 text-white relative overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[140px] pointer-events-none rounded-full" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs uppercase tracking-widest font-black text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
+              {t.videoReel.tag}
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white mt-3 tracking-tight">
+              {t.videoReel.title}
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base mt-2">
+              {t.videoReel.subtitle}
+            </p>
+          </div>
+
+          {/* 2 Smartphone-framed UGC Videos Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            
+            {/* UGC Video 1: Salon & Studio Owner */}
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col items-center shadow-2xl relative group">
+              <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
+                <video
+                  src="/media/ugc-story-1.mp4"
+                  poster="/media/ugc-thumb-1.webp"
+                  autoPlay
+                  loop
+                  muted={video1Muted}
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Audio toggle overlay */}
+                <button
+                  onClick={() => setVideo1Muted(!video1Muted)}
+                  aria-label={video1Muted ? "Unmute video 1" : "Mute video 1"}
+                  className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2.5 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[11px] font-bold"
+                >
+                  {video1Muted ? (
+                    <>
+                      <VolumeX className="w-4 h-4 text-amber-300" />
+                      <span>{t.videoReel.soundOn}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-4 h-4 text-emerald-400" />
+                      <span>{t.videoReel.soundOff}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="mt-4 text-center px-2">
+                <div className="flex items-center justify-center text-amber-400 text-xs gap-1 mb-1">
+                  {"★★★★★"}
+                </div>
+                <p className="font-bold text-sm text-white">{t.videoReel.video1Caption}</p>
+                <span className="text-xs text-slate-400">{t.videoReel.video1Role}</span>
+              </div>
+            </div>
+
+            {/* UGC Video 2: Aesthetic Clinic Manager */}
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col items-center shadow-2xl relative group">
+              <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
+                <video
+                  src="/media/ugc-story-2.mp4"
+                  poster="/media/ugc-thumb-2.webp"
+                  autoPlay
+                  loop
+                  muted={video2Muted}
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Audio toggle overlay */}
+                <button
+                  onClick={() => setVideo2Muted(!video2Muted)}
+                  aria-label={video2Muted ? "Unmute video 2" : "Mute video 2"}
+                  className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2.5 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[11px] font-bold"
+                >
+                  {video2Muted ? (
+                    <>
+                      <VolumeX className="w-4 h-4 text-amber-300" />
+                      <span>{t.videoReel.soundOn}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-4 h-4 text-emerald-400" />
+                      <span>{t.videoReel.soundOff}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="mt-4 text-center px-2">
+                <div className="flex items-center justify-center text-amber-400 text-xs gap-1 mb-1">
+                  {"★★★★★"}
+                </div>
+                <p className="font-bold text-sm text-white">{t.videoReel.video2Caption}</p>
+                <span className="text-xs text-slate-400">{t.videoReel.video2Role}</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Quick CTA below videos */}
+          <div className="text-center mt-12">
+            <button
+              onClick={scrollToPricing}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-black text-sm px-8 py-4 rounded-xl shadow-lg shadow-amber-400/20 transition-all active:scale-95"
+            >
+              <span>{locale === 'pt' ? 'Pedir Cartão de Avaliações — 19,99€' : 'Order Review Card — €19.99'}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* 5. ROI Calculator */}
       <section id="calculator" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -466,15 +593,28 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.useCases.items.map((item, idx) => (
-              <div key={idx} className="bg-[#f8fafc] border border-slate-200/80 p-6 rounded-2xl flex flex-col items-start hover:border-blue-400 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 border border-blue-200">
-                  {idx === 0 && <Utensils className="w-6 h-6" />}
-                  {idx === 1 && <Scissors className="w-6 h-6" />}
-                  {idx === 2 && <Stethoscope className="w-6 h-6" />}
-                  {idx === 3 && <ShoppingBag className="w-6 h-6" />}
+              <div key={idx} className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl flex flex-col overflow-hidden hover:border-blue-400 hover:shadow-md transition-all group">
+                {/* Photo Header */}
+                <div className="relative w-full h-44 overflow-hidden bg-slate-100">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                  />
+                  <div className="absolute top-3 left-3 w-9 h-9 rounded-xl bg-white/90 backdrop-blur-md text-blue-600 flex items-center justify-center shadow-sm border border-white/50">
+                    {idx === 0 && <Utensils className="w-4 h-4" />}
+                    {idx === 1 && <Scissors className="w-4 h-4" />}
+                    {idx === 2 && <Stethoscope className="w-4 h-4" />}
+                    {idx === 3 && <ShoppingBag className="w-4 h-4" />}
+                  </div>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base mb-2">{item.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-bold text-slate-900 text-sm mb-1.5">{item.title}</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -488,63 +628,188 @@ export default function Home() {
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
               
-              {/* Left Column: Product Showcase & Visuals */}
+              {/* Left Column: Product Showcase & Interactive Visuals */}
               <div className="lg:col-span-6 flex flex-col items-center">
-                {/* Main Product Card Visual Showcase */}
-                <div className="w-full max-w-md aspect-[1.586/1] rounded-3xl bg-gradient-to-br from-[#1b1e29] via-[#10121a] to-[#07080b] border-2 border-slate-800 p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-                  <div className="absolute inset-0 card-hologram pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity" />
+                {/* Dynamic Main View */}
+                <div className="w-full max-w-md aspect-[1.1/1] rounded-3xl border-2 border-slate-800 bg-slate-950 overflow-hidden shadow-2xl relative group flex items-center justify-center">
                   
-                  <div className="relative z-10 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-black font-black text-base shadow-md">
-                        G
+                  {activePdpImage === 0 && (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/media/card-podium-studio.webp"
+                        alt="TapFive NFC Google Review Card - Studio Podium View"
+                        fill
+                        priority
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
+                        Official Google White Card
                       </div>
-                      <div>
-                        <span className="font-extrabold text-base tracking-wide text-white block leading-tight">Google Review</span>
-                        <span className="text-xs text-slate-400 font-mono">Contactless NFC Card</span>
+                    </div>
+                  )}
+
+                  {activePdpImage === 1 && (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/media/card-cafe-restaurant.webp"
+                        alt="TapFive NFC Card on Cafe & Restaurant Counter"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
+                        Restaurant & Cafe Counter
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-blue-400">
-                      <Wifi className="w-4 h-4 rotate-90" />
-                    </div>
-                  </div>
+                  )}
 
-                  <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto">
-                    <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 mb-2 p-3 shadow-inner">
-                      <Zap className="w-7 h-7 text-amber-300 animate-pulse" />
+                  {activePdpImage === 2 && (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/media/card-salon-barber.webp"
+                        alt="TapFive NFC Card in Barbershop & Salon"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
+                        Salon & Barbershop Desk
+                      </div>
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-amber-300">
-                      {locale === 'pt' ? 'Aproxime o Telemóvel' : 'Tap Phone to Review'}
-                    </p>
-                    <div className="flex text-amber-400 text-sm mt-1 gap-1">
-                      {"★★★★★"}
-                    </div>
-                  </div>
+                  )}
 
-                  <div className="relative z-10 flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-white/10">
-                    <span className="font-mono text-gray-300">NTAG215 High-Speed</span>
-                    <span className="text-blue-400 font-semibold">{locale === 'pt' ? 'Sem Bateria / Sem App' : 'Zero Battery / No App'}</span>
-                  </div>
+                  {activePdpImage === 3 && (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/media/card-proof-metrics.webp"
+                        alt="TapFive Proven 3x Review Growth Metrics"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
+                        Average Impact (+128 Reviews)
+                      </div>
+                    </div>
+                  )}
+
+                  {activePdpImage === 4 && (
+                    /* 3D Interactive Matte NFC Card Container */
+                    <div 
+                      onClick={handleSimulateTap}
+                      className="cursor-pointer w-full h-full p-8 flex flex-col justify-between bg-gradient-to-br from-[#1b1e29] via-[#10121a] to-[#07080b] relative overflow-hidden"
+                    >
+                      <div className="absolute inset-0 card-hologram pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity" />
+                      
+                      <div className="relative z-10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-black font-black text-base shadow-md">
+                            G
+                          </div>
+                          <div>
+                            <span className="font-extrabold text-base tracking-wide text-white block leading-tight">Google Review</span>
+                            <span className="text-xs text-slate-400 font-mono">Contactless NFC Card</span>
+                          </div>
+                        </div>
+                        <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-blue-400">
+                          <Wifi className="w-4 h-4 rotate-90" />
+                        </div>
+                      </div>
+
+                      <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto">
+                        <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 mb-2 p-3 shadow-inner">
+                          <Zap className="w-7 h-7 text-amber-300 animate-pulse" />
+                        </div>
+                        <p className="text-xs font-bold uppercase tracking-widest text-amber-300">
+                          {locale === 'pt' ? 'Toque Contactless Instantâneo' : 'Instant Contactless Tap'}
+                        </p>
+                        <div className="flex text-amber-400 text-sm mt-1 gap-1">
+                          {"★★★★★"}
+                        </div>
+                      </div>
+
+                      <div className="relative z-10 flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-white/10">
+                        <span className="font-mono text-gray-300">NTAG215 High-Speed</span>
+                        <span className="text-blue-400 font-semibold">{locale === 'pt' ? 'Sem Bateria / Sem App' : 'Zero Battery / No App'}</span>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
 
-                {/* Micro PDP Thumbnail / Feature Pills */}
-                <div className="grid grid-cols-3 gap-3 w-full max-w-md mt-5">
-                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-3 text-center">
+                {/* Interactive Gallery Thumbnails */}
+                <div className="grid grid-cols-5 gap-2.5 w-full max-w-md mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(0)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      activePdpImage === 0 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src="/media/card-podium-studio.webp" alt="Podium Studio" fill className="object-cover" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(1)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      activePdpImage === 1 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src="/media/card-cafe-restaurant.webp" alt="Cafe & Restaurant" fill className="object-cover" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(2)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      activePdpImage === 2 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src="/media/card-salon-barber.webp" alt="Salon & Barbershop" fill className="object-cover" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(3)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      activePdpImage === 3 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src="/media/card-proof-metrics.webp" alt="Results Proof" fill className="object-cover" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(4)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 bg-slate-900 flex flex-col items-center justify-center p-1 text-center transition-all ${
+                      activePdpImage === 4 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Zap className="w-4 h-4 text-amber-300 mb-0.5" />
+                    <span className="text-[9px] font-bold text-white leading-tight">Interactive Tap</span>
+                  </button>
+                </div>
+
+                {/* Micro Hardware Specs */}
+                <div className="grid grid-cols-3 gap-3 w-full max-w-md mt-4">
+                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-2.5 text-center">
                     <div className="text-xs font-bold text-slate-900">NTAG215</div>
                     <div className="text-[10px] text-slate-500 font-medium">Fast NFC Chip</div>
                   </div>
-                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-3 text-center">
+                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-2.5 text-center">
                     <div className="text-xs font-bold text-slate-900">Matte PVC</div>
                     <div className="text-[10px] text-slate-500 font-medium">Waterproof 85x54mm</div>
                   </div>
-                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-3 text-center">
+                  <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl p-2.5 text-center">
                     <div className="text-xs font-bold text-slate-900">100,000+</div>
                     <div className="text-[10px] text-slate-500 font-medium">Tap Durability</div>
                   </div>
                 </div>
 
-                {/* Satisfaction Badge */}
-                <div className="mt-6 flex items-center gap-2 text-xs text-slate-500 font-medium text-center">
+                {/* Satisfaction Guarantee Badge */}
+                <div className="mt-5 flex items-center gap-2 text-xs text-slate-500 font-medium text-center">
                   <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>{locale === 'pt' ? 'Garantia total de 30 dias • Reembolso a 100%' : '30-day money-back guarantee • 100% risk free'}</span>
                 </div>
