@@ -42,7 +42,6 @@ export default function Home() {
   const [inputError, setInputError] = useState<boolean>(false);
   const [gbpContactInfo, setGbpContactInfo] = useState<string>("");
   const [gbpInputError, setGbpInputError] = useState<boolean>(false);
-  const [phoneTapped, setPhoneTapped] = useState<boolean>(false);
   const [activePdpImage, setActivePdpImage] = useState<number>(0);
   const [video1Muted, setVideo1Muted] = useState<boolean>(true);
   const [video2Muted, setVideo2Muted] = useState<boolean>(true);
@@ -113,16 +112,6 @@ export default function Home() {
     }
 
     window.open(url, "_blank");
-  };
-
-  const handleSimulateTap = () => {
-    setPhoneTapped(true);
-    confetti({
-      particleCount: 45,
-      spread: 50,
-      origin: { y: 0.5 },
-      colors: ['#10b981', '#2563eb', '#f59e0b']
-    });
   };
 
   const scrollToPricing = () => {
@@ -266,77 +255,51 @@ export default function Home() {
 
             </div>
 
-            {/* Right Column: Physical Card & Tap Simulator */}
+            {/* Right Column: Physical Product Showcase */}
             <div className="lg:col-span-5 flex flex-col items-center">
               
-              {/* Physical Card Object */}
-              <div className="relative w-full max-w-sm perspective-1000">
+              {/* Product Showcase Card */}
+              <div className="relative w-full max-w-md">
                 
-                {/* Physical Card Container */}
-                <div 
-                  onClick={handleSimulateTap}
-                  className="relative cursor-pointer aspect-[1.586/1] rounded-3xl bg-gradient-to-br from-[#1b1e29] via-[#10121a] to-[#07080b] border-2 border-slate-800 p-7 flex flex-col justify-between shadow-2xl hover:border-blue-500 transition-all duration-300 group overflow-hidden"
-                >
-                  {/* Holographic light layer */}
-                  <div className="absolute inset-0 card-hologram pointer-events-none opacity-35 group-hover:opacity-65 transition-opacity" />
+                {/* Glow Backdrop */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 via-indigo-500/15 to-amber-500/20 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
 
-                  <div className="relative z-10 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-black font-black text-sm shadow-md">
-                        G
-                      </div>
-                      <div>
-                        <span className="font-extrabold text-sm tracking-wide text-white block leading-tight">Google Review</span>
-                        <span className="text-[10px] text-slate-400 font-mono">Contactless NFC Card</span>
-                      </div>
-                    </div>
-                    <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                      <Wifi className="w-4 h-4 rotate-90" />
-                    </div>
+                {/* Main Card Image Container */}
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200/80 bg-white shadow-2xl">
+                  <Image
+                    src="/media/card-podium-studio.webp"
+                    alt="TapFive NFC Google Review Card - Studio Podium View"
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                  />
+                  
+                  {/* Floating Badges */}
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>NTAG215 High-Speed NFC</span>
                   </div>
 
-                  <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto">
-                    <div className="w-13 h-13 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 mb-2 group-hover:scale-110 transition-transform p-3 shadow-inner">
-                      <Zap className="w-6 h-6 animate-pulse text-amber-300" />
-                    </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-amber-300">
-                      {t.cardPreview.tapInstruction}
-                    </p>
-                    <div className="flex text-amber-400 text-sm mt-1 gap-1">
-                      {"★★★★★"}
-                    </div>
-                  </div>
-
-                  <div className="relative z-10 flex items-center justify-between text-[11px] text-gray-400 pt-3 border-t border-white/10">
-                    <span className="font-mono text-gray-300">NTAG215 High-Speed</span>
-                    <span className="text-blue-400 font-semibold">{locale === 'pt' ? 'Toque Contactless Instantâneo' : 'Instant Contactless Tap'}</span>
+                  <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200/80 shadow-md flex items-center gap-1">
+                    <span className="text-amber-400">★★★★★</span>
+                    <span className="text-[10px] text-slate-600 font-mono ml-0.5">5.0</span>
                   </div>
                 </div>
 
-                {/* Simulated Phone Pop-up */}
-                {phoneTapped && (
-                  <div className="absolute -bottom-7 -left-4 sm:-left-6 right-2 sm:right-auto bg-white border-2 border-emerald-500 p-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-300 z-30">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200">
-                      <Check className="w-5 h-5 stroke-[3]" />
-                    </div>
-                    <div className="text-left">
-                      <div className="flex items-center gap-1.5">
-                        <p className="text-xs font-extrabold text-slate-900">
-                          {locale === 'pt' ? 'Google Reviews Aberto!' : 'Google Review Prompt Opened!'}
-                        </p>
-                        <span className="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.2 rounded font-bold">1.2s</span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        {locale === 'pt' ? '5 estrelas selecionadas automaticamente no telemóvel' : '5 stars automatically selected on screen'}
-                      </p>
-                    </div>
-                  </div>
-                )}
-
               </div>
-              <p className="text-[11px] text-slate-400 mt-4 text-center font-medium">
-                {locale === 'pt' ? 'Chip passivo de alta sensibilidade • Alcance de 2 a 5 cm' : 'Passive high-sensitivity chip • 2 to 5 cm scan distance'}
-              </p>
+
+              <div className="flex items-center gap-4 mt-4 text-[11px] text-slate-500 font-medium">
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  {locale === 'pt' ? 'Sem bateria / Sem app' : 'No battery / No app'}
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  {locale === 'pt' ? 'Acabamento Matte Premium' : 'Premium Matte PVC'}
+                </span>
+              </div>
             </div>
 
           </div>
@@ -694,52 +657,10 @@ export default function Home() {
                     </div>
                   )}
 
-                  {activePdpImage === 4 && (
-                    /* 3D Interactive Matte NFC Card Container */
-                    <div 
-                      onClick={handleSimulateTap}
-                      className="cursor-pointer w-full h-full p-8 flex flex-col justify-between bg-gradient-to-br from-[#1b1e29] via-[#10121a] to-[#07080b] relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 card-hologram pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity" />
-                      
-                      <div className="relative z-10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-black font-black text-base shadow-md">
-                            G
-                          </div>
-                          <div>
-                            <span className="font-extrabold text-base tracking-wide text-white block leading-tight">Google Review</span>
-                            <span className="text-xs text-slate-400 font-mono">Contactless NFC Card</span>
-                          </div>
-                        </div>
-                        <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-blue-400">
-                          <Wifi className="w-4 h-4 rotate-90" />
-                        </div>
-                      </div>
-
-                      <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto">
-                        <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 mb-2 p-3 shadow-inner">
-                          <Zap className="w-7 h-7 text-amber-300 animate-pulse" />
-                        </div>
-                        <p className="text-xs font-bold uppercase tracking-widest text-amber-300">
-                          {locale === 'pt' ? 'Toque Contactless Instantâneo' : 'Instant Contactless Tap'}
-                        </p>
-                        <div className="flex text-amber-400 text-sm mt-1 gap-1">
-                          {"★★★★★"}
-                        </div>
-                      </div>
-
-                      <div className="relative z-10 flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-white/10">
-                        <span className="font-mono text-gray-300">NTAG215 High-Speed</span>
-                        <span className="text-blue-400 font-semibold">{locale === 'pt' ? 'Sem Bateria / Sem App' : 'Zero Battery / No App'}</span>
-                      </div>
-                    </div>
-                  )}
-
                 </div>
 
-                {/* Interactive Gallery Thumbnails */}
-                <div className="grid grid-cols-5 gap-2.5 w-full max-w-md mt-4">
+                {/* Product Gallery Thumbnails */}
+                <div className="grid grid-cols-4 gap-3 w-full max-w-md mt-4">
                   <button
                     type="button"
                     onClick={() => setActivePdpImage(0)}
@@ -778,17 +699,6 @@ export default function Home() {
                     }`}
                   >
                     <Image src="/media/card-proof-metrics.webp" alt="Results Proof" fill className="object-cover" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActivePdpImage(4)}
-                    className={`relative aspect-square rounded-xl overflow-hidden border-2 bg-slate-900 flex flex-col items-center justify-center p-1 text-center transition-all ${
-                      activePdpImage === 4 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
-                    }`}
-                  >
-                    <Zap className="w-4 h-4 text-amber-300 mb-0.5" />
-                    <span className="text-[9px] font-bold text-white leading-tight">Interactive Tap</span>
                   </button>
                 </div>
 
