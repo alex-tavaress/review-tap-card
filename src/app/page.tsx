@@ -117,7 +117,7 @@ export default function Home() {
             <div className="relative w-11 h-11 rounded-full overflow-hidden border border-slate-200/80 shadow-sm bg-white flex items-center justify-center shrink-0">
               <Image 
                 src="/logo.webp" 
-                alt="ReviewTap Logo" 
+                alt="TapFive Logo" 
                 width={44} 
                 height={44} 
                 priority
@@ -126,9 +126,9 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <span className="font-extrabold text-lg tracking-tight leading-none text-slate-900">
-                Review<span className="text-blue-600">Tap</span>
+                Tap<span className="text-blue-600">Five</span>
               </span>
-              <span className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Easy Google Reviews</span>
+              <span className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">tapfive.store</span>
             </div>
           </div>
 
@@ -855,13 +855,13 @@ export default function Home() {
           <div className="flex items-center gap-2.5">
             <Image 
               src="/logo.webp" 
-              alt="ReviewTap Logo" 
+              alt="TapFive Logo" 
               width={28} 
               height={28} 
               className="rounded-full shadow-xs"
             />
             <span className="font-extrabold text-sm tracking-tight text-slate-800">
-              Review<span className="text-blue-600">Tap</span>
+              Tap<span className="text-blue-600">Five</span>
             </span>
           </div>
           <div className="flex items-center gap-2 font-bold text-slate-700 text-sm">
@@ -869,7 +869,7 @@ export default function Home() {
             <span>{t.footer.secureNotice}</span>
           </div>
           <p className="text-[11px] font-mono">
-            © {new Date().getFullYear()} ReviewTap Studio. {t.footer.rights}
+            © {new Date().getFullYear()} TapFive (tapfive.store). {t.footer.rights}
           </p>
         </div>
       </footer>
