@@ -43,8 +43,15 @@ export default function Home() {
   const [gbpContactInfo, setGbpContactInfo] = useState<string>("");
   const [gbpInputError, setGbpInputError] = useState<boolean>(false);
   const [activePdpImage, setActivePdpImage] = useState<number>(0);
-  const [video1Muted, setVideo1Muted] = useState<boolean>(true);
-  const [video2Muted, setVideo2Muted] = useState<boolean>(true);
+  const [mutedVideos, setMutedVideos] = useState<boolean[]>([true, true, true, true, true, true]);
+
+  const toggleVideoMute = (index: number) => {
+    setMutedVideos((prev) => {
+      const next = [...prev];
+      next[index] = !next[index];
+      return next;
+    });
+  };
 
   // Auto-detect browser/device language: default to English, switch to Portuguese only if device is set to Portuguese
   useEffect(() => {
@@ -373,93 +380,87 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 2 Smartphone-framed UGC Videos Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            
-            {/* UGC Video 1: Salon & Studio Owner */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col items-center shadow-2xl relative group">
-              <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
-                <video
-                  src="/media/ugc-story-1.mp4"
-                  poster="/media/ugc-thumb-1.webp"
-                  autoPlay
-                  loop
-                  muted={video1Muted}
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Audio toggle overlay */}
-                <button
-                  onClick={() => setVideo1Muted(!video1Muted)}
-                  aria-label={video1Muted ? "Unmute video 1" : "Mute video 1"}
-                  className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2.5 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[11px] font-bold"
-                >
-                  {video1Muted ? (
-                    <>
-                      <VolumeX className="w-4 h-4 text-amber-300" />
-                      <span>{t.videoReel.soundOn}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Volume2 className="w-4 h-4 text-emerald-400" />
-                      <span>{t.videoReel.soundOff}</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <div className="mt-4 text-center px-2">
-                <div className="flex items-center justify-center text-amber-400 text-xs gap-1 mb-1">
-                  {"★★★★★"}
+          {/* 6 Smartphone-framed UGC Videos Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                src: "/media/ugc-story-1.mp4",
+                poster: "/media/ugc-thumb-1.webp",
+                caption: t.videoReel.video1Caption,
+                role: t.videoReel.video1Role,
+              },
+              {
+                src: "/media/ugc-story-2.mp4",
+                poster: "/media/ugc-thumb-2.webp",
+                caption: t.videoReel.video2Caption,
+                role: t.videoReel.video2Role,
+              },
+              {
+                src: "/media/ugc-story-3.mp4",
+                poster: "/media/ugc-thumb-3.webp",
+                caption: t.videoReel.video3Caption,
+                role: t.videoReel.video3Role,
+              },
+              {
+                src: "/media/ugc-story-4.mp4",
+                poster: "/media/ugc-thumb-4.webp",
+                caption: t.videoReel.video4Caption,
+                role: t.videoReel.video4Role,
+              },
+              {
+                src: "/media/ugc-story-5.mp4",
+                poster: "/media/ugc-thumb-5.webp",
+                caption: t.videoReel.video5Caption,
+                role: t.videoReel.video5Role,
+              },
+              {
+                src: "/media/ugc-story-6.mp4",
+                poster: "/media/ugc-thumb-6.webp",
+                caption: t.videoReel.video6Caption,
+                role: t.videoReel.video6Role,
+              },
+            ].map((video, idx) => (
+              <div key={idx} className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 flex flex-col items-center shadow-2xl relative group">
+                <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
+                  <video
+                    src={video.src}
+                    poster={video.poster}
+                    autoPlay
+                    loop
+                    muted={mutedVideos[idx]}
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Audio toggle overlay */}
+                  <button
+                    onClick={() => toggleVideoMute(idx)}
+                    aria-label={mutedVideos[idx] ? `Unmute video ${idx + 1}` : `Mute video ${idx + 1}`}
+                    className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[10px] font-bold"
+                  >
+                    {mutedVideos[idx] ? (
+                      <>
+                        <VolumeX className="w-3.5 h-3.5 text-amber-300" />
+                        <span>{t.videoReel.soundOn}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{t.videoReel.soundOff}</span>
+                      </>
+                    )}
+                  </button>
                 </div>
-                <p className="font-bold text-sm text-white">{t.videoReel.video1Caption}</p>
-                <span className="text-xs text-slate-400">{t.videoReel.video1Role}</span>
-              </div>
-            </div>
 
-            {/* UGC Video 2: Aesthetic Clinic Manager */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col items-center shadow-2xl relative group">
-              <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
-                <video
-                  src="/media/ugc-story-2.mp4"
-                  poster="/media/ugc-thumb-2.webp"
-                  autoPlay
-                  loop
-                  muted={video2Muted}
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Audio toggle overlay */}
-                <button
-                  onClick={() => setVideo2Muted(!video2Muted)}
-                  aria-label={video2Muted ? "Unmute video 2" : "Mute video 2"}
-                  className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2.5 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[11px] font-bold"
-                >
-                  {video2Muted ? (
-                    <>
-                      <VolumeX className="w-4 h-4 text-amber-300" />
-                      <span>{t.videoReel.soundOn}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Volume2 className="w-4 h-4 text-emerald-400" />
-                      <span>{t.videoReel.soundOff}</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <div className="mt-4 text-center px-2">
-                <div className="flex items-center justify-center text-amber-400 text-xs gap-1 mb-1">
-                  {"★★★★★"}
+                <div className="mt-3 text-center px-2">
+                  <div className="flex items-center justify-center text-amber-400 text-xs gap-0.5 mb-1">
+                    {"★★★★★"}
+                  </div>
+                  <p className="font-bold text-xs sm:text-sm text-white leading-snug">{video.caption}</p>
+                  <span className="text-[11px] text-slate-400 mt-0.5 block">{video.role}</span>
                 </div>
-                <p className="font-bold text-sm text-white">{t.videoReel.video2Caption}</p>
-                <span className="text-xs text-slate-400">{t.videoReel.video2Role}</span>
               </div>
-            </div>
-
+            ))}
           </div>
 
           {/* Quick CTA below videos */}
@@ -646,10 +647,25 @@ export default function Home() {
                     </div>
                   )}
 
+                  {activePdpImage === 4 && (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/media/card-ad-features.webp"
+                        alt="TapFive NFC Card Specs & Direct Rating Features"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
+                        Zero Fees • Direct Rating
+                      </div>
+                    </div>
+                  )}
+
                 </div>
 
                 {/* Product Gallery Thumbnails */}
-                <div className="grid grid-cols-4 gap-3 w-full max-w-md mt-4">
+                <div className="grid grid-cols-5 gap-2.5 w-full max-w-md mt-4">
                   <button
                     type="button"
                     onClick={() => setActivePdpImage(0)}
@@ -688,6 +704,16 @@ export default function Home() {
                     }`}
                   >
                     <Image src="/media/card-proof-metrics.webp" alt="Results Proof" fill className="object-cover" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePdpImage(4)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      activePdpImage === 4 ? "border-blue-600 ring-2 ring-blue-600/30 scale-105" : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src="/media/card-ad-features.webp" alt="Features Overview" fill className="object-cover" />
                   </button>
                 </div>
 
