@@ -33,11 +33,16 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.webp",
+  },
   alternates: {
-    canonical: "https://tapfive.store",
+    canonical: "https://www.tapfive.store",
     languages: {
-      "en-US": "https://tapfive.store",
-      "pt-PT": "https://tapfive.store",
+      "en-US": "https://www.tapfive.store",
+      "pt-PT": "https://www.tapfive.store",
     },
   },
   openGraph: {
