@@ -271,15 +271,16 @@ export default function Home() {
                 {/* Glow Backdrop */}
                 <div className="absolute -inset-3 bg-gradient-to-tr from-blue-600/25 via-amber-500/20 to-indigo-600/25 rounded-[2.5rem] blur-2xl opacity-80 pointer-events-none" />
 
-                {/* Main Card Image Container */}
-                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden border-2 border-slate-200/90 bg-slate-900 shadow-2xl group">
-                  <Image
-                    src="/media/hero-card-showcase.webp"
-                    alt="TapFive NFC Google Review Card"
-                    fill
-                    priority
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 380px"
+                {/* Main Video Showcase Container */}
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden border-2 border-slate-200/90 bg-slate-950 shadow-2xl">
+                  <video
+                    src="/media/hero-video-loop.mp4"
+                    poster="/media/hero-video-poster.webp"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
