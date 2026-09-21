@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -16,6 +16,8 @@ import {
   ShoppingBag, 
   CheckCircle2, 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   Sparkles, 
   Wifi, 
   QrCode, 
@@ -44,6 +46,7 @@ export default function Home() {
   const [gbpInputError, setGbpInputError] = useState<boolean>(false);
   const [activePdpImage, setActivePdpImage] = useState<number>(0);
   const [mutedVideos, setMutedVideos] = useState<boolean[]>([true, true, true, true, true, true]);
+  const videoCarouselRef = useRef<HTMLDivElement>(null);
 
   const toggleVideoMute = (index: number) => {
     setMutedVideos((prev) => {
@@ -51,6 +54,13 @@ export default function Home() {
       next[index] = !next[index];
       return next;
     });
+  };
+
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (videoCarouselRef.current) {
+      const scrollAmount = direction === "left" ? -340 : 340;
+      videoCarouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
   };
 
   // Auto-detect browser/device language: default to English, switch to Portuguese only if device is set to Portuguese
@@ -381,87 +391,122 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 6 Smartphone-framed UGC Videos Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {[
-              {
-                src: "/media/ugc-story-1.mp4",
-                poster: "/media/ugc-thumb-1.webp",
-                caption: t.videoReel.video1Caption,
-                role: t.videoReel.video1Role,
-              },
-              {
-                src: "/media/ugc-story-2.mp4",
-                poster: "/media/ugc-thumb-2.webp",
-                caption: t.videoReel.video2Caption,
-                role: t.videoReel.video2Role,
-              },
-              {
-                src: "/media/ugc-story-3.mp4",
-                poster: "/media/ugc-thumb-3.webp",
-                caption: t.videoReel.video3Caption,
-                role: t.videoReel.video3Role,
-              },
-              {
-                src: "/media/ugc-story-4.mp4",
-                poster: "/media/ugc-thumb-4.webp",
-                caption: t.videoReel.video4Caption,
-                role: t.videoReel.video4Role,
-              },
-              {
-                src: "/media/ugc-story-5.mp4",
-                poster: "/media/ugc-thumb-5.webp",
-                caption: t.videoReel.video5Caption,
-                role: t.videoReel.video5Role,
-              },
-              {
-                src: "/media/ugc-story-6.mp4",
-                poster: "/media/ugc-thumb-6.webp",
-                caption: t.videoReel.video6Caption,
-                role: t.videoReel.video6Role,
-              },
-            ].map((video, idx) => (
-              <div key={idx} className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 flex flex-col items-center shadow-2xl relative group">
-                <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
-                  <video
-                    src={video.src}
-                    poster={video.poster}
-                    autoPlay
-                    loop
-                    muted={mutedVideos[idx]}
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  {/* Audio toggle overlay */}
-                  <button
-                    onClick={() => toggleVideoMute(idx)}
-                    aria-label={mutedVideos[idx] ? `Unmute video ${idx + 1}` : `Mute video ${idx + 1}`}
-                    className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[10px] font-bold"
-                  >
-                    {mutedVideos[idx] ? (
-                      <>
-                        <VolumeX className="w-3.5 h-3.5 text-amber-300" />
-                        <span>{t.videoReel.soundOn}</span>
-                      </>
-                    ) : (
-                      <>
-                        <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>{t.videoReel.soundOff}</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+          {/* Interactive Carousel Container */}
+          <div className="relative max-w-6xl mx-auto group/carousel">
+            
+            {/* Left Nav Arrow */}
+            <button
+              onClick={() => scrollCarousel("left")}
+              aria-label="Previous customer stories"
+              className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700 shadow-2xl items-center justify-center transition-all hover:scale-110 active:scale-95"
+            >
+              <ChevronLeft className="w-6 h-6 text-amber-300" />
+            </button>
 
-                <div className="mt-3 text-center px-2">
-                  <div className="flex items-center justify-center text-amber-400 text-xs gap-0.5 mb-1">
-                    {"★★★★★"}
+            {/* Right Nav Arrow */}
+            <button
+              onClick={() => scrollCarousel("right")}
+              aria-label="Next customer stories"
+              className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700 shadow-2xl items-center justify-center transition-all hover:scale-110 active:scale-95"
+            >
+              <ChevronRight className="w-6 h-6 text-amber-300" />
+            </button>
+
+            {/* Scrollable Track */}
+            <div 
+              ref={videoCarouselRef}
+              className="flex gap-6 overflow-x-auto pb-4 pt-2 px-2 scroll-smooth snap-x snap-mandatory no-scrollbar"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {[
+                {
+                  src: "/media/ugc-story-1.mp4",
+                  poster: "/media/ugc-thumb-1.webp",
+                  caption: t.videoReel.video1Caption,
+                  role: t.videoReel.video1Role,
+                },
+                {
+                  src: "/media/ugc-story-2.mp4",
+                  poster: "/media/ugc-thumb-2.webp",
+                  caption: t.videoReel.video2Caption,
+                  role: t.videoReel.video2Role,
+                },
+                {
+                  src: "/media/ugc-story-3.mp4",
+                  poster: "/media/ugc-thumb-3.webp",
+                  caption: t.videoReel.video3Caption,
+                  role: t.videoReel.video3Role,
+                },
+                {
+                  src: "/media/ugc-story-4.mp4",
+                  poster: "/media/ugc-thumb-4.webp",
+                  caption: t.videoReel.video4Caption,
+                  role: t.videoReel.video4Role,
+                },
+                {
+                  src: "/media/ugc-story-5.mp4",
+                  poster: "/media/ugc-thumb-5.webp",
+                  caption: t.videoReel.video5Caption,
+                  role: t.videoReel.video5Role,
+                },
+                {
+                  src: "/media/ugc-story-6.mp4",
+                  poster: "/media/ugc-thumb-6.webp",
+                  caption: t.videoReel.video6Caption,
+                  role: t.videoReel.video6Role,
+                },
+              ].map((video, idx) => (
+                <div 
+                  key={idx} 
+                  className="flex-none w-[280px] sm:w-[320px] snap-center bg-slate-900/90 border border-slate-800 rounded-3xl p-4 flex flex-col items-center shadow-2xl relative transition-transform hover:-translate-y-1 duration-300"
+                >
+                  <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-700/60">
+                    <video
+                      src={video.src}
+                      poster={video.poster}
+                      autoPlay
+                      loop
+                      muted={mutedVideos[idx]}
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                    
+                    {/* Audio toggle overlay */}
+                    <button
+                      onClick={() => toggleVideoMute(idx)}
+                      aria-label={mutedVideos[idx] ? `Unmute video ${idx + 1}` : `Mute video ${idx + 1}`}
+                      className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white backdrop-blur-md p-2 rounded-full border border-white/20 transition-transform active:scale-90 flex items-center gap-1.5 text-[10px] font-bold z-10"
+                    >
+                      {mutedVideos[idx] ? (
+                        <>
+                          <VolumeX className="w-3.5 h-3.5 text-amber-300" />
+                          <span>{t.videoReel.soundOn}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>{t.videoReel.soundOff}</span>
+                        </>
+                      )}
+                    </button>
                   </div>
-                  <p className="font-bold text-xs sm:text-sm text-white leading-snug">{video.caption}</p>
-                  <span className="text-[11px] text-slate-400 mt-0.5 block">{video.role}</span>
+
+                  <div className="mt-3 text-center px-2">
+                    <div className="flex items-center justify-center text-amber-400 text-xs gap-0.5 mb-1">
+                      {"★★★★★"}
+                    </div>
+                    <p className="font-bold text-xs sm:text-sm text-white leading-snug">{video.caption}</p>
+                    <span className="text-[11px] text-slate-400 mt-0.5 block">{video.role}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Mobile swipe hint & Navigation helper */}
+            <div className="flex items-center justify-center gap-2 mt-4 text-xs text-slate-400">
+              <span className="md:hidden font-medium">← {locale === 'pt' ? 'Deslize para ver mais histórias' : 'Swipe to see more stories'} →</span>
+            </div>
+
           </div>
 
           {/* Quick CTA below videos */}
