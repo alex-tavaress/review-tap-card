@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tapfive.store/sitemap.xml
+Sitemap: https://www.tapfive.store/sitemap.xml
