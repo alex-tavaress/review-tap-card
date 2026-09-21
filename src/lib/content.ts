@@ -213,7 +213,26 @@ export const content = {
     footer: {
       rights: "All rights reserved. Not affiliated with Google LLC.",
       secureNotice: "100% Secure Checkout with Stripe 256-Bit SSL Encryption.",
-    }
+      terms: "Terms of Service",
+      privacy: "Privacy Policy",
+      refunds: "Refund Policy",
+      support: "WhatsApp: +351 928 248 322",
+    },
+    success: {
+      badge: "Payment Confirmed",
+      title: "Thank You for Your Order!",
+      subtitle: "We're already preparing your TapFive™ contactless NFC card. A receipt has been sent to your email from Stripe.",
+      orderStepsTitle: "What happens next?",
+      step1Title: "1. Chip Encoding & Testing",
+      step1Desc: "If you ordered a Pre-Programmed card, our technical team encodes your direct 5-star Google review link onto the NTAG215 chip and tests it on iOS & Android.",
+      step2Title: "2. Fast Express Dispatch",
+      step2Desc: "Your card is securely packed and handed over for registered delivery within 24 to 48 hours.",
+      step3Title: "3. Tap & Start Collecting Reviews",
+      step3Desc: "Place it on your counter or table. Customers tap their phone and your 5-star Google review window pops up instantly.",
+      ctaHome: "Return to Homepage",
+      needHelpTitle: "Have any questions about your order?",
+      needHelpText: "Reply to your receipt or message us directly on WhatsApp (+351 928 248 322).",
+    },
   },
   pt: {
     banner: "🔥 Envio Grátis e Rápido em todas as encomendas esta semana!",
@@ -427,7 +446,26 @@ export const content = {
     footer: {
       rights: "Todos os direitos reservados. Não afiliado com a Google LLC.",
       secureNotice: "Pagamento 100% Seguro através de encriptação SSL Stripe de 256 bits.",
-    }
+      terms: "Termos de Serviço",
+      privacy: "Política de Privacidade",
+      refunds: "Política de Reembolso",
+      support: "WhatsApp: +351 928 248 322",
+    },
+    success: {
+      badge: "Pagamento Confirmado",
+      title: "Obrigado pela Sua Encomenda!",
+      subtitle: "Já estamos a preparar o seu cartão TapFive™ contactless NFC. O recibo oficial foi enviado pela Stripe para o seu e-mail.",
+      orderStepsTitle: "O que acontece a seguir?",
+      step1Title: "1. Gravação & Verificação do Chip",
+      step1Desc: "Se encomendou a versão Pré-Programada, a nossa equipa grava o link direto de 5 estrelas do seu perfil Google no chip NTAG215 e efetua o teste de leitura.",
+      step2Title: "2. Expedição Rápida",
+      step2Desc: "O seu cartão é embalado com segurança e enviado em correio registado num prazo de 24h a 48h.",
+      step3Title: "3. Comece a Receber Avaliações",
+      step3Desc: "Basta colocar o cartão no balcão. O cliente aproxima o telemóvel e o Google abre imediatamente no ecrã.",
+      ctaHome: "Voltar à Página Principal",
+      needHelpTitle: "Alguma dúvida sobre a sua encomenda?",
+      needHelpText: "Responda ao e-mail de recibo ou envie mensagem direta no WhatsApp (+351 928 248 322).",
+    },
   }
 };
 

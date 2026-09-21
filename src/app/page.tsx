@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { 
   Star, 
   Smartphone, 
@@ -12,17 +13,18 @@ import {
   Utensils, 
   Scissors, 
   Stethoscope, 
-  ShoppingBag,
-  CheckCircle2,
-  ChevronDown,
-  Sparkles,
-  Wifi,
-  QrCode,
-  Lock,
-  Layers,
-  Truck,
-  RotateCcw,
-  CreditCard
+  ShoppingBag, 
+  CheckCircle2, 
+  ChevronDown, 
+  Sparkles, 
+  Wifi, 
+  QrCode, 
+  Lock, 
+  Layers, 
+  Truck, 
+  RotateCcw, 
+  CreditCard,
+  MessageCircle
 } from "lucide-react";
 import { content, Locale } from "@/lib/content";
 import { STRIPE_CONFIG } from "@/lib/stripe";
@@ -875,8 +877,8 @@ export default function Home() {
       </section>
 
       {/* 9. Trust Footer */}
-      <footer className="py-12 border-t border-slate-200 bg-[#f8fafc] text-xs text-slate-500 text-center">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center gap-4">
+      <footer className="py-14 border-t border-slate-200 bg-[#f8fafc] text-xs text-slate-500 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center gap-5">
           <div className="flex items-center gap-2.5">
             <Image 
               src="/logo.webp" 
@@ -889,15 +891,56 @@ export default function Home() {
               Tap<span className="text-blue-600">Five</span>
             </span>
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-700 text-sm">
+
+          {/* Legal and Support Links */}
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-600">
+            <Link href="/legal" className="hover:text-blue-600 transition-colors">
+              {t.footer.terms}
+            </Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/legal" className="hover:text-blue-600 transition-colors">
+              {t.footer.refunds}
+            </Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/legal" className="hover:text-blue-600 transition-colors">
+              {t.footer.privacy}
+            </Link>
+            <span className="text-slate-300">•</span>
+            <a 
+              href="https://wa.me/351928248322" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 text-emerald-700 font-bold inline-flex items-center gap-1.5 transition-colors"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{t.footer.support}</span>
+            </a>
+          </div>
+
+          <div className="flex items-center gap-2 font-bold text-slate-700 text-sm pt-2">
             <ShieldCheck className="w-5 h-5 text-emerald-600" />
             <span>{t.footer.secureNotice}</span>
           </div>
+
           <p className="text-[11px] font-mono">
             © {new Date().getFullYear()} TapFive (tapfive.store). {t.footer.rights}
           </p>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Support Button */}
+      <a
+        href="https://wa.me/351928248322?text=Ol%C3%A1%21%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20cart%C3%A3o%20TapFive."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        className="fixed bottom-5 right-5 z-40 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-lg shadow-emerald-600/30 transition-all hover:scale-110 active:scale-95 flex items-center gap-2 group"
+      >
+        <MessageCircle className="w-6 h-6 fill-current" />
+        <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-bold px-0 group-hover:pr-2">
+          {locale === "pt" ? "Falar no WhatsApp" : "Chat on WhatsApp"}
+        </span>
+      </a>
 
     </div>
   );
