@@ -585,7 +585,7 @@ export default function Home() {
               {/* Left Column: Product Showcase & Interactive Visuals */}
               <div className="lg:col-span-6 flex flex-col items-center">
                 {/* Dynamic Main View */}
-                <div className="w-full max-w-md aspect-[1.1/1] rounded-3xl border-2 border-slate-800 bg-slate-950 overflow-hidden shadow-2xl relative group flex items-center justify-center">
+                <div className="w-full max-w-md aspect-[4/5] rounded-3xl border-2 border-slate-200/80 bg-slate-950 overflow-hidden shadow-2xl relative group flex items-center justify-center">
                   
                   {activePdpImage === 0 && (
                     <div className="relative w-full h-full">
@@ -597,9 +597,6 @@ export default function Home() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
-                        Official Google White Card
-                      </div>
                     </div>
                   )}
 
@@ -612,9 +609,6 @@ export default function Home() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
-                        Restaurant & Cafe Counter
-                      </div>
                     </div>
                   )}
 
@@ -627,9 +621,6 @@ export default function Home() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
-                        Salon & Barbershop Desk
-                      </div>
                     </div>
                   )}
 
@@ -642,9 +633,6 @@ export default function Home() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
-                        Average Impact (+128 Reviews)
-                      </div>
                     </div>
                   )}
 
@@ -657,9 +645,6 @@ export default function Home() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border border-white/10">
-                        Zero Fees • Direct Rating
-                      </div>
                     </div>
                   )}
 
