@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { 
   Star, 
@@ -29,7 +29,7 @@ import { STRIPE_CONFIG } from "@/lib/stripe";
 import confetti from "canvas-confetti";
 
 export default function Home() {
-  const [locale, setLocale] = useState<Locale>("pt");
+  const [locale, setLocale] = useState<Locale>("en");
   const [customersPerDay, setCustomersPerDay] = useState<number>(40);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [selectedVariant, setSelectedVariant] = useState<"preProgrammed" | "blank" | "gbpSetup">("preProgrammed");
@@ -38,6 +38,31 @@ export default function Home() {
   const [gbpContactInfo, setGbpContactInfo] = useState<string>("");
   const [gbpInputError, setGbpInputError] = useState<boolean>(false);
   const [phoneTapped, setPhoneTapped] = useState<boolean>(false);
+
+  // Auto-detect browser/device language: default to English, switch to Portuguese only if device is set to Portuguese
+  useEffect(() => {
+    const savedLocale = localStorage.getItem("tapfive_locale") as Locale | null;
+    if (savedLocale === "pt" || savedLocale === "en") {
+      setLocale(savedLocale);
+      return;
+    }
+
+    const browserLang = (navigator.language || (navigator.languages && navigator.languages[0]) || "").toLowerCase();
+    if (browserLang.startsWith("pt")) {
+      setLocale("pt");
+    } else {
+      setLocale("en");
+    }
+  }, []);
+
+  const changeLocale = (newLocale: Locale) => {
+    setLocale(newLocale);
+    try {
+      localStorage.setItem("tapfive_locale", newLocale);
+    } catch {
+      // Ignore localStorage errors
+    }
+  };
 
   const t = content[locale];
   const monthlyEstimatedReviews = Math.round(customersPerDay * 30 * 0.12);
@@ -145,13 +170,13 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <div className="flex items-center bg-slate-100 border border-slate-200 rounded-xl p-1 text-xs font-bold">
               <button 
-                onClick={() => setLocale("pt")}
+                onClick={() => changeLocale("pt")}
                 className={`px-2.5 py-1 rounded-lg transition-all ${locale === 'pt' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'}`}
               >
                 🇵🇹 PT
               </button>
               <button 
-                onClick={() => setLocale("en")}
+                onClick={() => changeLocale("en")}
                 className={`px-2.5 py-1 rounded-lg transition-all ${locale === 'en' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'}`}
               >
                 🇬🇧 EN
